@@ -61,22 +61,33 @@ const App = {
     createCard(pass, index) {
         const card = document.createElement('div');
         card.className = 'pass-card';
-        card.dataset.index = index;
-        card.dataset.passId = pass.id;
+        card.setAttribute('data-index', String(index));
+        card.setAttribute('data-pass-id', pass.id);
 
         // Check if measurement pass without start value
         if (pass.type === 'measurement' && !PassManager.isMeasurementEnabled(pass.id)) {
             card.classList.add('disabled');
         }
 
-        // Header
+        // Header - iOS Safari fix: build DOM elements instead of innerHTML
         const header = document.createElement('div');
         header.className = 'pass-header';
-        header.innerHTML = `
-            <div class="pass-icon">${pass.icon}</div>
-            <h2 class="pass-title">${pass.name}</h2>
-            <p class="pass-subtitle">${PassManager.getProgressText(pass)}</p>
-        `;
+
+        const iconDiv = document.createElement('div');
+        iconDiv.className = 'pass-icon';
+        iconDiv.textContent = pass.icon;
+        header.appendChild(iconDiv);
+
+        const titleEl = document.createElement('h2');
+        titleEl.className = 'pass-title';
+        titleEl.textContent = pass.name;
+        header.appendChild(titleEl);
+
+        const subtitleEl = document.createElement('p');
+        subtitleEl.className = 'pass-subtitle';
+        subtitleEl.textContent = PassManager.getProgressText(pass);
+        header.appendChild(subtitleEl);
+
         card.appendChild(header);
 
         // Stamp grid
@@ -120,16 +131,22 @@ const App = {
         for (let i = 0; i < pass.target; i++) {
             const field = document.createElement('div');
             field.className = 'stamp-field';
-            field.dataset.passId = pass.id;
-            field.dataset.index = i;
+            field.setAttribute('data-pass-id', pass.id);
+            field.setAttribute('data-index', String(i));
+
+            // iOS Safari fix: create inner content element instead of using ::before
+            const content = document.createElement('span');
+            content.className = 'stamp-field-content';
 
             if (i < stampCount) {
                 field.classList.add('stamped');
-                field.dataset.icon = pass.icon;
+                content.textContent = pass.icon;
             } else if (pass.type === 'simple') {
                 // Only simple passes can be tapped
                 field.onclick = () => this.onStampTap(pass.id, i);
             }
+
+            field.appendChild(content);
 
             // Long press for undo
             if (i < stampCount) {
@@ -148,19 +165,27 @@ const App = {
         return container;
     },
 
-    // Create progress bar
+    // Create progress bar - iOS Safari fix: build DOM elements instead of innerHTML
     createProgressBar(pass) {
         const container = document.createElement('div');
         container.className = 'progress-container';
 
         const progress = PassManager.getProgress(pass);
 
-        container.innerHTML = `
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: ${progress}%"></div>
-            </div>
-            <p class="progress-text">${PassManager.getProgressText(pass)}</p>
-        `;
+        const progressBarDiv = document.createElement('div');
+        progressBarDiv.className = 'progress-bar';
+
+        const progressFillDiv = document.createElement('div');
+        progressFillDiv.className = 'progress-fill';
+        progressFillDiv.style.width = progress + '%';
+        progressBarDiv.appendChild(progressFillDiv);
+
+        const progressTextP = document.createElement('p');
+        progressTextP.className = 'progress-text';
+        progressTextP.textContent = PassManager.getProgressText(pass);
+
+        container.appendChild(progressBarDiv);
+        container.appendChild(progressTextP);
 
         return container;
     },
@@ -178,13 +203,16 @@ const App = {
         const success = PassManager.addStamp(passId);
         if (success) {
             // Animate
-            const field = document.querySelector(`.stamp-field[data-pass-id="${passId}"][data-index="${index}"]`);
+            const field = document.querySelector('.stamp-field[data-pass-id="' + passId + '"][data-index="' + index + '"]');
             if (field) {
                 field.classList.add('animating');
-                setTimeout(() => {
+                const content = field.querySelector('.stamp-field-content');
+                setTimeout(function() {
                     field.classList.remove('animating');
                     field.classList.add('stamped');
-                    field.dataset.icon = pass.icon;
+                    if (content) {
+                        content.textContent = pass.icon;
+                    }
                     field.onclick = null; // Remove click handler
                 }, 300);
             }
@@ -295,22 +323,27 @@ const App = {
     animateEarnedStamps(passId, count) {
         const pass = Storage.getPass(passId);
         const startIndex = pass.currentStamps - count;
+        const self = this;
 
         let animated = 0;
-        const animateNext = () => {
+        var animateNext = function() {
             if (animated >= count) {
-                this.renderCards();
-                this.updateCarousel();
+                self.renderCards();
+                self.updateCarousel();
                 return;
             }
 
-            const field = document.querySelector(`.stamp-field[data-pass-id="${passId}"][data-index="${startIndex + animated}"]`);
+            const idx = startIndex + animated;
+            const field = document.querySelector('.stamp-field[data-pass-id="' + passId + '"][data-index="' + idx + '"]');
             if (field) {
                 field.classList.add('animating');
-                setTimeout(() => {
+                const content = field.querySelector('.stamp-field-content');
+                setTimeout(function() {
                     field.classList.remove('animating');
                     field.classList.add('stamped');
-                    field.dataset.icon = pass.icon;
+                    if (content) {
+                        content.textContent = pass.icon;
+                    }
                 }, 300);
             }
 
