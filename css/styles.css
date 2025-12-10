@@ -1,0 +1,689 @@
+/* ========================================
+   Clemi 2.0 - Styles
+   Dark Mode, ADHS/Autismus-optimiert
+   ======================================== */
+
+:root {
+    /* Color Palette */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --accent-green: #2d5a27;
+    --accent-bronze: #cd7f32;
+    --accent-blue: #1e3a5f;
+    --text-primary: #e8e0d5;
+    --text-secondary: #a0a0a0;
+
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-xxl: 48px;
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+
+    /* Transitions */
+    --transition-fast: 150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    --transition-normal: 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    --transition-slow: 500ms cubic-bezier(0.4, 0.0, 0.2, 1);
+
+    /* Typography */
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    --font-size-sm: 14px;
+    --font-size-md: 16px;
+    --font-size-lg: 20px;
+    --font-size-xl: 24px;
+    --font-size-xxl: 32px;
+}
+
+/* ========================================
+   Reset & Base
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    overflow: hidden;
+    touch-action: pan-y;
+    height: 100vh;
+    height: 100dvh;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: inherit;
+}
+
+input {
+    font-family: inherit;
+}
+
+/* ========================================
+   Header
+   ======================================== */
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) var(--space-lg);
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 100;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.settings-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: opacity var(--transition-fast);
+}
+
+.settings-btn:hover,
+.settings-btn:active {
+    opacity: 1;
+}
+
+.app-title {
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.dietzie-counter {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--accent-bronze);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    transition: transform var(--transition-fast);
+}
+
+.dietzie-counter:active {
+    transform: scale(0.95);
+}
+
+.dietzie-icon {
+    font-size: var(--font-size-xl);
+}
+
+/* ========================================
+   Main Content & Carousel
+   ======================================== */
+
+.app-main {
+    height: calc(100vh - 60px);
+    height: calc(100dvh - 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-lg);
+}
+
+.carousel-container {
+    flex: 1;
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform var(--transition-normal);
+    height: 100%;
+    touch-action: pan-y;
+}
+
+.pass-card {
+    min-width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.pass-card.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.pass-header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.pass-icon {
+    font-size: var(--font-size-xxl);
+    margin-bottom: var(--space-md);
+}
+
+.pass-title {
+    font-size: var(--font-size-xl);
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.pass-subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-top: var(--space-xs);
+}
+
+/* ========================================
+   Stamp Grid
+   ======================================== */
+
+.stamp-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+    flex: 1;
+    align-content: center;
+}
+
+.stamp-field {
+    aspect-ratio: 1;
+    border: 2px solid var(--accent-green);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xl);
+    background-color: rgba(45, 90, 39, 0.1);
+    transition: all var(--transition-normal);
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+.stamp-field.stamped {
+    background-color: var(--accent-green);
+    border-color: var(--accent-green);
+    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.5),
+                inset -1px -1px 2px rgba(255, 255, 255, 0.1);
+    cursor: default;
+}
+
+.stamp-field.stamped::before {
+    content: attr(data-icon);
+    opacity: 0.8;
+}
+
+.stamp-field.animating {
+    animation: stampPress 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+@keyframes stampPress {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Long press feedback */
+.stamp-field.long-pressing {
+    animation: stampPulse 500ms ease-in-out;
+}
+
+@keyframes stampPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+/* ========================================
+   Progress Bar
+   ======================================== */
+
+.progress-container {
+    margin-bottom: var(--space-lg);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: rgba(45, 90, 39, 0.2);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: var(--space-sm);
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--accent-green);
+    transition: width var(--transition-normal);
+}
+
+.progress-text {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* ========================================
+   Measurement Button & Info
+   ======================================== */
+
+.measurement-button {
+    width: 100%;
+    padding: var(--space-md);
+    background-color: var(--accent-green);
+    color: var(--text-primary);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-md);
+    font-weight: 500;
+    margin-top: var(--space-md);
+    transition: transform var(--transition-fast);
+}
+
+.measurement-button:active {
+    transform: scale(0.98);
+}
+
+.measurement-current {
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-top: var(--space-md);
+}
+
+/* ========================================
+   Carousel Navigation
+   ======================================== */
+
+.carousel-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-top: var(--space-lg);
+}
+
+.nav-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--bg-secondary);
+    font-size: var(--font-size-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-fast);
+}
+
+.nav-btn:hover,
+.nav-btn:active {
+    background-color: var(--accent-green);
+}
+
+.nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.nav-indicator {
+    font-size: var(--font-size-md);
+    color: var(--text-secondary);
+    min-width: 100px;
+    text-align: center;
+}
+
+/* ========================================
+   Modals
+   ======================================== */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: var(--space-lg);
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    width: 32px;
+    height: 32px;
+    font-size: var(--font-size-xxl);
+    line-height: 1;
+    opacity: 0.6;
+    transition: opacity var(--transition-fast);
+}
+
+.modal-close:hover,
+.modal-close:active {
+    opacity: 1;
+}
+
+.modal h2 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-lg);
+    text-align: center;
+}
+
+.modal h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-md);
+    color: var(--text-secondary);
+}
+
+/* ========================================
+   Forms
+   ======================================== */
+
+.form-group {
+    margin-bottom: var(--space-lg);
+}
+
+.form-group label {
+    display: block;
+    font-size: var(--font-size-md);
+    margin-bottom: var(--space-sm);
+    color: var(--text-secondary);
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background-color: var(--bg-primary);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+}
+
+.input-wrapper input {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: var(--font-size-lg);
+    outline: none;
+}
+
+.input-wrapper .unit {
+    color: var(--text-secondary);
+    font-size: var(--font-size-md);
+}
+
+/* ========================================
+   Buttons
+   ======================================== */
+
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+    width: 100%;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-md);
+    font-weight: 500;
+    transition: transform var(--transition-fast);
+}
+
+.btn-primary:active,
+.btn-secondary:active,
+.btn-danger:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background-color: var(--accent-green);
+    color: var(--text-primary);
+}
+
+.btn-secondary {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-danger {
+    background-color: #8b0000;
+    color: var(--text-primary);
+}
+
+.modal-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+}
+
+/* ========================================
+   Dietzie Modal
+   ======================================== */
+
+.dietzie-display {
+    text-align: center;
+    margin: var(--space-xl) 0;
+}
+
+.dietzie-icons {
+    font-size: var(--font-size-xxl);
+    margin-bottom: var(--space-md);
+    min-height: 40px;
+}
+
+.dietzie-available {
+    font-size: var(--font-size-xl);
+    color: var(--accent-bronze);
+    font-weight: 600;
+}
+
+.btn-redeem {
+    margin-bottom: var(--space-xl);
+}
+
+.btn-redeem:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.dietzie-history {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: var(--space-lg);
+}
+
+.history-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.history-item {
+    padding: var(--space-sm) 0;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: space-between;
+}
+
+.history-item.earned {
+    color: var(--accent-green);
+}
+
+.history-item.redeemed {
+    color: var(--accent-bronze);
+}
+
+/* ========================================
+   Settings Modal
+   ======================================== */
+
+.settings-section {
+    margin-bottom: var(--space-xl);
+}
+
+.settings-section:last-child {
+    margin-bottom: 0;
+}
+
+.settings-section .btn-secondary,
+.settings-section .btn-danger {
+    margin-top: var(--space-md);
+}
+
+/* ========================================
+   Completion Modal
+   ======================================== */
+
+.completion-content {
+    text-align: center;
+}
+
+.bronze-badge {
+    margin: var(--space-xl) auto;
+    animation: badgeFadeIn 500ms ease-out;
+}
+
+@keyframes badgeFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.reward-text {
+    font-size: var(--font-size-xxl);
+    color: var(--accent-bronze);
+    font-weight: 600;
+    margin: var(--space-lg) 0;
+}
+
+.completion-message {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+}
+
+/* ========================================
+   Measurement Info
+   ======================================== */
+
+.measurement-info {
+    padding: var(--space-md);
+    background-color: var(--bg-primary);
+    border-radius: var(--radius-md);
+    margin: var(--space-lg) 0;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 600px) {
+    .pass-card {
+        padding: var(--space-lg);
+    }
+
+    .stamp-grid {
+        gap: 6px;
+    }
+
+    .stamp-field {
+        font-size: var(--font-size-lg);
+    }
+}
+
+@media (max-width: 400px) {
+    .app-title {
+        display: none;
+    }
+
+    .stamp-grid {
+        gap: 4px;
+    }
+}
+
+/* ========================================
+   Accessibility - Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

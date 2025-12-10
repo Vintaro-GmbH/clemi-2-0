@@ -1,0 +1,32 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#1a1a1a" rx="64"/>
+
+  <!-- Stamp grid representation -->
+  <g transform="translate(128, 128)">
+    <!-- Top row -->
+    <rect x="0" y="0" width="50" height="50" fill="#2d5a27" rx="4"/>
+    <rect x="62" y="0" width="50" height="50" fill="#2d5a27" rx="4"/>
+    <rect x="124" y="0" width="50" height="50" fill="#2d5a27" rx="4"/>
+    <rect x="186" y="0" width="50" height="50" fill="#2d5a27" rx="4"/>
+    <rect x="248" y="0" width="50" height="50" fill="none" stroke="#2d5a27" stroke-width="2" rx="4"/>
+
+    <!-- Middle row -->
+    <rect x="0" y="62" width="50" height="50" fill="#2d5a27" rx="4"/>
+    <rect x="62" y="62" width="50" height="50" fill="#2d5a27" rx="4"/>
+    <rect x="124" y="62" width="50" height="50" fill="#2d5a27" rx="4"/>
+    <rect x="186" y="62" width="50" height="50" fill="none" stroke="#2d5a27" stroke-width="2" rx="4"/>
+    <rect x="248" y="62" width="50" height="50" fill="none" stroke="#2d5a27" stroke-width="2" rx="4"/>
+
+    <!-- Bottom row -->
+    <rect x="0" y="124" width="50" height="50" fill="#2d5a27" rx="4"/>
+    <rect x="62" y="124" width="50" height="50" fill="#2d5a27" rx="4"/>
+    <rect x="124" y="124" width="50" height="50" fill="none" stroke="#2d5a27" stroke-width="2" rx="4"/>
+    <rect x="186" y="124" width="50" height="50" fill="none" stroke="#2d5a27" stroke-width="2" rx="4"/>
+    <rect x="248" y="124" width="50" height="50" fill="none" stroke="#2d5a27" stroke-width="2" rx="4"/>
+  </g>
+
+  <!-- Bronze badge accent -->
+  <circle cx="420" cy="92" r="40" fill="#cd7f32"/>
+  <text x="420" y="105" font-size="36" text-anchor="middle" fill="#1a1a1a">🍺</text>
+</svg>
